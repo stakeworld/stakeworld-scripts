@@ -17,4 +17,5 @@ echo 'PATH=$PATH:~/opt/stakeworld-scripts/' >> ~/.profile
 ```
 
 ## included scripts
-* keystore-backup.sh: make a backup of the polkadot instances excluding the database, so the keystore and network keys. Also backup the /etc directory. Preferably mount an remote backup storage or export backups to remote storage
+* node-install.sh: a polkadot/kusama node and snapshot installer.
+* keystore-backup.sh: make a backup of the polkadot instances excluding the database, so the keystore and network keys. Also backup the /etc directory. Preferably mount an remote backup storage or export backups to remote storage.

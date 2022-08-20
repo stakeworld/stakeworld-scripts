@@ -29,5 +29,5 @@ exec 1>>$workdir/var/backup.log
 
 # START
 echo `date` "Starting backup"
-tar --exclude='paritydb' --exclude='db' -zcvf $backupdir/$node/keystore-backup.$date.tgz $datadir
-tar -zcvf $backupdir/$node/etc-backup.$date.tgz /etc
+tar --exclude='paritydb' --exclude='db' -zcvf $backupdir/$node/keystore-backup.$date.tgz $datadir 2>/dev/null
+tar -zcvf $backupdir/$node/etc-backup.$date.tgz /etc 2>/dev/null

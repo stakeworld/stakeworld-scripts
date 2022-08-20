@@ -91,6 +91,7 @@ EOF
 if (yesno "You want to install the polkadot binary via apt?"); then
 cat << EOF >> $scriptdir/install.sh
 # Import the security@parity.io GPG key
+apt install gpg
 gpg --recv-keys --keyserver hkps://keys.mailvelope.com 9D4B2B6EB8F97156D19669A9FF0812D491B96798
 gpg --export 9D4B2B6EB8F97156D19669A9FF0812D491B96798 > /usr/share/keyrings/parity.gpg
 # Add the Parity repository and update the package index

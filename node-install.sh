@@ -182,6 +182,7 @@ mainmenu
 # Review the script. Starting an editor seems problematic from piped stdin
 msg "You can review the script and decide to run or edit"
 cat $scriptdir/install.sh | more
+cat $scriptdir/*.service | more
 
 if (yesno "You want to proceed and runt the script? If you want to review first the script can be found in $scriptdir/install.sh"); then
 $scriptdir/install.sh

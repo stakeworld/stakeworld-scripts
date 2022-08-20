@@ -178,7 +178,7 @@ cat << EOF >> $scriptdir/install.sh
 
 # Installing s snapshot
 apt -y install lz4
-mkdir -p $nodedir/chains/$chain
+mkdir -p $nodedir/chains/$snapchain
 curl -o - -L http://snapshot.stakeworld.nl/$database-$snapchain.lz4 | lz4 -c -d - | tar -x -C $nodedir/chains/$snapchain
 EOF
 

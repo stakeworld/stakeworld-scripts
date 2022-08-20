@@ -107,6 +107,7 @@ cat << EOF >> $scriptdir/install.sh
 # Install systemctl script
 cp $scriptdir/$nodename-$nodenumber.service /etc/systemd/system
 # Start/stop polkadot to create directory structure
+echo "Starting the polkadot process and waiting 5 seconds for creation of the directory"
 systemctl daemon-reload
 systemctl start $nodename-$nodenumber
 sleep 5
@@ -118,6 +119,7 @@ EOF
 if (yesno "You want to install the firewall"); then
 cat << EOF >> $scriptdir/install.sh
 # firewall
+echo "Enabling the firewall"
 apt install ufw
 ufw allow openssh
 ufw enable
@@ -130,6 +132,7 @@ fi
 if (yesno "You want to restore a snapshot?"); then
 cat << EOF >> $scriptdir/install.sh
 # Installing s snapshot
+echo "Restoring a snapshot"
 curl -o - -L http://snapshot.stakeworld.nl/$database-$chain.lz4 | lz4 -c -d - | tar -x -C $nodedir/$nodename-$nodenumber/chains/$chain
 EOF
 fi
@@ -189,4 +192,6 @@ if (yesno "You want to proceed and runt the script? If you want to review first 
 $scriptdir/install.sh
 fi
 
+echo "The script is located in $scriptdir"
+echo "For more information see https://stakeworld.nl" 
 echo "Script finished"

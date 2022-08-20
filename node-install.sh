@@ -158,11 +158,18 @@ EOF
 
 function snapinstall {
 
-chain=$(menu "Which chain do you want to install" 0 75 0 polkadot "polkadot node" "ksmcc3" "kusama node" )
+chain=$(menu "Which chain do you want to install" 0 75 0 polkadot "polkadot node" "kusama" "kusama node" )
 database=$(menu "Which database do you want to install" 0 75 0 paritydb "Paritydb (newer, quicker)" "rocksdb" "Rocksdb (more stable)" )
 
 snaptargets=`find /home/polkadot /home/polkadot2 /root/.local/share/ -maxdepth 1 -mindepth 1 -type d \( ! -iname ".*" \) -printf "%p -\n" 2> /dev/null`
 nodedir=$(menu "Where do you want to install" 0 75 0 $snaptargets )
+
+if [[ $chain = "kusama" ]]
+then
+    snapchain="ksmcc3"
+else
+    snapchain="polkadot"
+fi
 
 # Make our script
 cat << EOF >> $scriptdir/install.sh
@@ -170,8 +177,9 @@ cat << EOF >> $scriptdir/install.sh
 # created on $date
 
 # Installing s snapshot
+apt -y install lz4
 mkdir -p $nodedir/chains/$chain
-curl -o - -L http://snapshot.stakeworld.nl/$database-$chain.lz4 | lz4 -c -d - | tar -x -C $nodedir/chains/$chain
+curl -o - -L http://snapshot.stakeworld.nl/$database-$snapchain.lz4 | lz4 -c -d - | tar -x -C $nodedir/chains/$snapchain
 EOF
 
 }

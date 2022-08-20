@@ -41,12 +41,12 @@ cat << EOF >> $scriptdir/install.sh
 
 EOF
 
-chain=$(menu "Which chain do you want to install" 0 75 0 polkadot "polkadot node" "ksmcc3" "kusama node" )
+chain=$(menu "Which chain do you want to install" 0 75 0 polkadot "polkadot node" "kusama" "kusama node" )
 database=$(menu "Which database do you want to install" 0 75 0 paritydb "Paritydb (newer, quicker)" "rocksdb" "Rocksdb (more stable)" )
 telemetry=$(menu "Which telemetry to use" 0 75 0 "telemetry.polkadot.io" "default telemetry" "telemetry-backend.w3f.community" "1000 validator telemetry" )
-nodedir=$(menu "Where do you want to install" 0 75 0 "/home/polkadot/" " best for multi-node install" "/root/.local/share/polkadot/" " default location" )
+nodedir=$(menu "Where do you want to install" 0 75 0 "/home/polkadot" " best for multi-node install" "/root/.local/share/polkadot" " default location" )
 nodename=$(input "How do you want to name your node. This will be used in the systemctl script and in the homedirectory." 0 70 "mynode" )
-nodenumber=$(menu "Depending on hardware and network it is possible to install extra nodes, official advise is one node per server. For one node choose 01, for the second 02, etc" 0 75 0 "00" "first node" "01" "Second node" "03" "Third node" )
+nodenumber=$(menu "Depending on hardware and network it is possible to install extra nodes, official advise is one node per server. For one node choose 01, for the second 02, etc" 0 75 0 "01" "first node" "02" "Second node" "03" "Third node" )
 
 cat << EOF >> $scriptdir/$nodename-$nodenumber.service
 [Unit]
@@ -91,15 +91,15 @@ EOF
 if (yesno "You want to install the polkadot binary via apt?"); then
 cat << EOF >> $scriptdir/install.sh
 # Import the security@parity.io GPG key
-apt install gpg
+apt -y install gpg
 gpg --recv-keys --keyserver hkps://keys.mailvelope.com 9D4B2B6EB8F97156D19669A9FF0812D491B96798
 gpg --export 9D4B2B6EB8F97156D19669A9FF0812D491B96798 > /usr/share/keyrings/parity.gpg
 # Add the Parity repository and update the package index
 echo 'deb [signed-by=/usr/share/keyrings/parity.gpg] https://releases.parity.io/deb release main' > /etc/apt/sources.list.d/parity.list
 apt update
-apt install parity-keyring
+apt -y install parity-keyring
 # Install polkadot
-apt install polkadot
+apt -y install polkadot
 EOF
 fi
 
@@ -120,9 +120,9 @@ if (yesno "You want to install the firewall"); then
 cat << EOF >> $scriptdir/install.sh
 # firewall
 echo "Enabling the firewall"
-apt install ufw
+apt -y install ufw
 ufw allow openssh
-ufw enable
+ufw --force enable
 ufw allow from any port 30300:30399 proto tcp
 ufw status
 EOF
@@ -130,10 +130,17 @@ fi
 
 # Snapshot
 if (yesno "You want to restore a snapshot?"); then
+if [[ $chain = "kusama" ]]
+then
+    snapchain="ksmcc3"
+else
+    snapchain="polkadot"
+fi
 cat << EOF >> $scriptdir/install.sh
 # Installing s snapshot
 echo "Restoring a snapshot"
-curl -o - -L http://snapshot.stakeworld.nl/$database-$chain.lz4 | lz4 -c -d - | tar -x -C $nodedir/$nodename-$nodenumber/chains/$chain
+apt -y install lz4
+curl -o - -L http://snapshot.stakeworld.nl/$database-$snapchain.lz4 | lz4 -c -d - | tar -x -C $nodedir/$nodename-$nodenumber/chains/$snapchain
 EOF
 fi
 

@@ -14,12 +14,20 @@ trap 'error $LINENO' ERR
 
 
 # Setup variables
-workdir="/home/polkadot"
+datadir="/home/polkadot"
+workdir="/opt/stakeworld-scripts"
 backupdir="/backup"
 date=`date +%Y.%m.%d.%H.%M`
 node=`hostname`
 
+# Directories
 mkdir -p $backupdir/$node
+mkdir -p $workdir/var
 
-tar --exclude='paritydb' --exclude='db' -zcvf $backupdir/$node/keystore-backup.$date.tgz $workdir
+# STDOUT to logfile
+exec 1>>$workdir/var/backup.log
+
+# START
+echo `date` "Starting backup"
+tar --exclude='paritydb' --exclude='db' -zcvf $backupdir/$node/keystore-backup.$date.tgz $datadir
 tar -zcvf $backupdir/$node/etc-backup.$date.tgz /etc

@@ -181,7 +181,7 @@ cat << EOF >> $scriptdir/install.sh
 apt -y install lz4
 mkdir -p $nodedir/chains/$snapchain
 curl -o - -L http://snapshot.stakeworld.nl/$database-$snapchain.lz4 | lz4 -c -d - | tar -x -C $nodedir/chains/$snapchain
-chown polkadot:polkadot $nodedir/$nodename-$nodenumber/chains/$snapchain -R
+chown polkadot:polkadot $nodedir/chains/$snapchain -R
 EOF
 
 }

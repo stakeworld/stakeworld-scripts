@@ -20,6 +20,8 @@ if ! which whiptail > /dev/null; then
    fi
 fi
 
+export NEWT_COLORS='root=,blue'
+
 # Functions
 
 function menu() { whiptail --menu "$@" 3>&1 1>&2 2>&3 ; }

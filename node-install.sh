@@ -204,7 +204,7 @@ date=`date`
 mainmenu
 
 # Review the script. Starting an editor seems problematic from piped stdin
-msg "You can review the script and decide to run or edit"
+msg "You can review the script and decide to run or edit. Press q to exit the preview, space for next page."
 less $scriptdir/install.sh
 
 if [ -f "$scriptdir/$nodename-$nodenumber.service" ]; then

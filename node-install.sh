@@ -47,7 +47,7 @@ chain=$(menu "Which chain do you want to install" 0 75 0 polkadot "polkadot node
 database=$(menu "Which database do you want to install" 0 75 0 paritydb "Paritydb (newer, quicker)" "rocksdb" "Rocksdb (more stable)" )
 #database="paritydb"
 telemetry=$(menu "Which telemetry to use" 0 75 0 "telemetry.polkadot.io" "default telemetry" "telemetry-backend.w3f.community" "1000 validator telemetry" )
-nodedir=$(menu "Where do you want to install" 0 75 0 "/home/polkadot" " best for multi-node install" "/root/.local/share/polkadot" " default location" )
+nodedir=$(menu "Where do you want to install" 0 75 0 "/home/polkadot" " best for multi-node install" )
 nodename=$(input "How do you want to name your node. This will be used in the systemctl script and in the homedirectory." 0 70 "mynode" )
 nodenumber=$(menu "Depending on hardware and network it is possible to install extra nodes, official advise is one node per server. For one node choose 01, for the second 02, etc" 0 75 0 "01" "first node" "02" "Second node" "03" "Third node" )
 

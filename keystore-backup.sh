@@ -16,9 +16,15 @@ trap 'error $LINENO' ERR
 # Setup variables
 datadir="/home/polkadot"
 workdir="/opt/stakeworld-scripts"
-backupdir="/backup"
+backupdir="/backup/nodebackup"
 date=`date +%Y.%m.%d.%H.%M`
 node=`hostname`
+
+if [ ! -d $backupdir ]
+then
+	    echo "$backupdir does not exist"
+	        exit 1
+fi
 
 # Directories
 mkdir -p $backupdir/$node

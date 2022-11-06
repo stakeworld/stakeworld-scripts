@@ -127,6 +127,7 @@ apt -y install ufw
 ufw allow openssh
 ufw --force enable
 ufw allow from any port 30300:30399 proto tcp
+ufw logging off
 ufw status
 EOF
 fi

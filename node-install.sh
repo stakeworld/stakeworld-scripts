@@ -60,7 +60,7 @@ StartLimitIntervalSec=200
 StartLimitBurst=2
 
 [Service]
-ExecStart=/usr/bin/polkadot --chain $chain --name $nodename-$nodenumber --validator --pruning 1000 --port 303$nodenumber --rpc-port 99$nodenumber --ws-port 98$nodenumber --prometheus-port 96$nodenumber --prometheus-external --base-path $nodedir/$nodename-$nodenumber --database $database --telemetry-url 'wss://$telemetry/submit 1' 
+ExecStart=/usr/bin/polkadot --chain $chain --name $nodename-$nodenumber --validator --state-pruning 1000 --blocks-pruning 1000 --port 303$nodenumber --rpc-port 99$nodenumber --ws-port 98$nodenumber --prometheus-port 96$nodenumber --prometheus-external --base-path $nodedir/$nodename-$nodenumber --database $database --telemetry-url 'wss://$telemetry/submit 1' 
 User=polkadot
 Group=polkadot
 Restart=always

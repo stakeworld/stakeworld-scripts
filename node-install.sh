@@ -145,7 +145,7 @@ cat << EOF >> $scriptdir/install.sh
 # Installing s snapshot
 echo "Restoring a snapshot"
 apt -y install lz4
-curl -o - -L http://snapshot.stakeworld.nl/$database-$snapchain.lz4 | lz4 -c -d - | tar -x -C $nodedir/$nodename-$nodenumber/chains/$snapchain
+curl -o - -L http://snapshot.stakeworld.io/$database-$snapchain.lz4 | lz4 -c -d - | tar -x -C $nodedir/$nodename-$nodenumber/chains/$snapchain
 chown polkadot:polkadot $nodedir/$nodename-$nodenumber/chains/$snapchain -R
 EOF
 fi
@@ -157,7 +157,7 @@ systemctl start $nodename-$nodenumber
 # Endnote
 echo "If everything is well the node is running now and should be visible from https://$telemetry (tip: start typing to search for your node)"
 echo "The script is located in $scriptdir"
-echo "For more information see https://stakeworld.nl" 
+echo "For more information see https://stakeworld.io" 
 EOF
 
 }
@@ -185,7 +185,7 @@ cat << EOF >> $scriptdir/install.sh
 # Installing s snapshot
 apt -y install lz4
 mkdir -p $nodedir/chains/$snapchain
-curl -o - -L http://snapshot.stakeworld.nl/$database-$snapchain.lz4 | lz4 -c -d - | tar -x -C $nodedir/chains/$snapchain
+curl -o - -L http://snapshot.stakeworld.io/$database-$snapchain.lz4 | lz4 -c -d - | tar -x -C $nodedir/chains/$snapchain
 chown polkadot:polkadot $nodedir/chains/$snapchain -R
 EOF
 
@@ -219,5 +219,5 @@ $scriptdir/install.sh
 fi
 
 echo "The script is located in $scriptdir"
-echo "For more information see https://stakeworld.nl" 
+echo "For more information see https://stakeworld.io" 
 echo "Script finished"

@@ -74,8 +74,8 @@ fi
 
 if (yesno "You want to install a service file? Default is warp sync, or you can choose a snapshot"); then
 chain=$(menu "Which chain do you want to install" 0 75 0 polkadot "polkadot node" "kusama" "kusama node" )
-database=$(menu "Which database do you want to install" 0 75 0 paritydb "Paritydb (newer, quicker)" "rocksdb" "Rocksdb (more stable)" )
-#database="paritydb"
+#database=$(menu "Which database do you want to install" 0 75 0 paritydb "Paritydb (newer, quicker)" "rocksdb" "Rocksdb (more stable)" )
+database="paritydb"
 telemetry=$(menu "Which telemetry to use" 0 75 0 "telemetry.polkadot.io" "default telemetry" "telemetry-backend.w3f.community" "1000 validator telemetry" )
 nodedir=$(menu "Where do you want to install" 0 75 0 "/home/polkadot" " best for multi-node install" )
 nodename=$(input "How do you want to name your node. This will be used in the systemctl script and in the homedirectory." 0 70 "mynode" )
